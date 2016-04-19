@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<esper-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.espertech.com/schema/esper"
+    xsi:noNamespaceSchemaLocation="esper-configuration-4-0.xsd"> 
+	<event-type-auto-name package-name="com.jopenbusiness.hadoop.esper.event"/>
+	<event-type name="ServiceEvent" class="com.jopenbusiness.hadoop.esper.event.ServiceEvent"/>
+</esper-configuration>
