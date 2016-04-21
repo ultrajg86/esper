@@ -24,7 +24,6 @@ public class SampleEngine {
 		service = EPServiceProviderManager.getDefaultProvider(config);
 				
 		//---	EPL(Event Processing Language)을 사용하여 Statement를 생성 합니다.
-		//---	지난 3초 동안 발생한 이벤트로 전체 갯수와 가격 평균을 구합니다. 
 		//epl = "select item, count(*), avg(price) from SampleEvent.win:time(3 sec)";
 		epl = "select item, avg(price), count(*) from SampleEvent.win:time(10 sec) where item = 'NFM' ";
 		stat = service.getEPAdministrator().createEPL(epl);
