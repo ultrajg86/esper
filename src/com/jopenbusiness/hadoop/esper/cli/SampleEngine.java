@@ -22,10 +22,11 @@ public class SampleEngine {
 		config = new Configuration();
 		config.addEventType("SampleEvent", SampleEvent.class.getName());
 		service = EPServiceProviderManager.getDefaultProvider(config);
-		
+				
 		//---	EPL(Event Processing Language)을 사용하여 Statement를 생성 합니다.
 		//---	지난 3초 동안 발생한 이벤트로 전체 갯수와 가격 평균을 구합니다. 
-		epl = "select item, count(*), avg(price) from SampleEvent.win:time(3 sec)";
+		//epl = "select item, count(*), avg(price) from SampleEvent.win:time(3 sec)";
+		epl = "select item, avg(price), count(*) from SampleEvent.win:time(10 sec) where item = 'NFM' ";
 		stat = service.getEPAdministrator().createEPL(epl);
 				
 		listener = new SampleListener();
@@ -34,7 +35,22 @@ public class SampleEngine {
 		//---	Event를 발생시켜 봅니다.
 		runtime = service.getEPRuntime();
 		for (int i = 0;i < 20; i++) {
-			runtime.sendEvent(new SampleEvent("aaa_" + i, 10.0 * i));			
+			
+			double price = Math.random() * 1000;
+			double randCandidate = Math.random();
+
+			String candidate;
+			if(randCandidate > 0.6){
+				candidate = "NFM";
+			}else if(randCandidate > 0.3){
+				candidate = "Tim";
+			}else{
+				candidate = "Kim";
+			}
+			
+			System.out.println(candidate + " / Send Event!!!");
+			runtime.sendEvent(new SampleEvent(candidate, price));			
+			
 			try {
 				Thread.sleep(300);
 			} catch (InterruptedException ex) {
